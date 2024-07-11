@@ -1,9 +1,4 @@
-import {
-  AuthBindings,
-  Authenticated,
-  GitHubBanner,
-  Refine,
-} from "@refinedev/core";
+import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
@@ -16,7 +11,6 @@ import {
 
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
-import nestjsxCrudDataProvider from "@refinedev/nestjsx-crud";
 import routerBindings, {
   CatchAllNavigate,
   DocumentTitleHandler,
@@ -27,7 +21,6 @@ import axios from "axios";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
-import { CredentialResponse } from "./interfaces/google";
 import {
   BlogPostCreate,
   BlogPostEdit,
@@ -41,7 +34,7 @@ import {
   CategoryShow,
 } from "./pages/categories";
 import { Login } from "./pages/login";
-import { parseJwt } from "./utils/parse-jwt";
+import { dataProvider } from "./providers/dataProvider";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -54,84 +47,81 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 function App() {
-  const API_URL = "https://api.nestjsx-crud.refine.dev";
-  const dataProvider = nestjsxCrudDataProvider(API_URL);
+  // const authProvider: AuthBindings = {
+  //   login: async ({ credential }: CredentialResponse) => {
+  //     const profileObj = credential ? parseJwt(credential) : null;
 
-  const authProvider: AuthBindings = {
-    login: async ({ credential }: CredentialResponse) => {
-      const profileObj = credential ? parseJwt(credential) : null;
+  //     if (profileObj) {
+  //       localStorage.setItem(
+  //         "user",
+  //         JSON.stringify({
+  //           ...profileObj,
+  //           avatar: profileObj.picture,
+  //         })
+  //       );
 
-      if (profileObj) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            ...profileObj,
-            avatar: profileObj.picture,
-          })
-        );
+  //       localStorage.setItem("token", `${credential}`);
 
-        localStorage.setItem("token", `${credential}`);
+  //       return {
+  //         success: true,
+  //         redirectTo: "/",
+  //       };
+  //     }
 
-        return {
-          success: true,
-          redirectTo: "/",
-        };
-      }
+  //     return {
+  //       success: false,
+  //     };
+  //   },
+  //   logout: async () => {
+  //     const token = localStorage.getItem("token");
 
-      return {
-        success: false,
-      };
-    },
-    logout: async () => {
-      const token = localStorage.getItem("token");
+  //     if (token && typeof window !== "undefined") {
+  //       localStorage.removeItem("token");
+  //       localStorage.removeItem("user");
+  //       axios.defaults.headers.common = {};
+  //       window.google?.accounts.id.revoke(token, () => {
+  //         return {};
+  //       });
+  //     }
 
-      if (token && typeof window !== "undefined") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        axios.defaults.headers.common = {};
-        window.google?.accounts.id.revoke(token, () => {
-          return {};
-        });
-      }
+  //     return {
+  //       success: true,
+  //       redirectTo: "/login",
+  //     };
+  //   },
+  //   onError: async (error) => {
+  //     console.error(error);
+  //     return { error };
+  //   },
+  //   check: async () => {
+  //     const token = localStorage.getItem("token");
 
-      return {
-        success: true,
-        redirectTo: "/login",
-      };
-    },
-    onError: async (error) => {
-      console.error(error);
-      return { error };
-    },
-    check: async () => {
-      const token = localStorage.getItem("token");
+  //     if (token) {
+  //       return {
+  //         authenticated: true,
+  //       };
+  //     }
 
-      if (token) {
-        return {
-          authenticated: true,
-        };
-      }
+  //     return {
+  //       authenticated: false,
+  //       error: {
+  //         message: "Check failed",
+  //         name: "Token not found",
+  //       },
+  //       logout: true,
+  //       redirectTo: "/login",
+  //     };
+  //   },
+  //   getPermissions: async () => null,
+  //   getIdentity: async () => {
+  //     const user = localStorage.getItem("user");
+  //     if (user) {
+  //       return JSON.parse(user);
+  //     }
 
-      return {
-        authenticated: false,
-        error: {
-          message: "Check failed",
-          name: "Token not found",
-        },
-        logout: true,
-        redirectTo: "/login",
-      };
-    },
-    getPermissions: async () => null,
-    getIdentity: async () => {
-      const user = localStorage.getItem("user");
-      if (user) {
-        return JSON.parse(user);
-      }
-
-      return null;
-    },
-  };
+  //     return null;
+  //   },
+  // };
 
   return (
     <BrowserRouter>
@@ -146,7 +136,7 @@ function App() {
                 dataProvider={dataProvider}
                 notificationProvider={notificationProvider}
                 routerProvider={routerBindings}
-                authProvider={authProvider}
+                // authProvider={authProvider}
                 resources={[
                   {
                     name: "blog_posts",
