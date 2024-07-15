@@ -1,4 +1,4 @@
-import { commonResources } from "./dbResources";
+import { adminResources, commonResources } from "./dbResources";
 
 /**
  * 리소스 생성
@@ -13,7 +13,25 @@ export const generateCommonResources = (resources: string[]) => {
     meta: {
       canDelete: true,
       label: createLabel(resource),
-      parent: resource === "users" ? undefined : "common", // 유저가 아닌 것들만 common 하위 카테고리
+      parent: "common",
+    },
+  }));
+};
+
+/**
+ * 리소스 생성
+ */
+export const generateAdminResources = (resources: string[]) => {
+  return resources.map((resource) => ({
+    name: resource,
+    list: `/${resource}`,
+    create: `/${resource}/create`,
+    edit: `/${resource}/edit/:id`,
+    show: `/${resource}/show/:id`,
+    meta: {
+      canDelete: true,
+      label: createLabel(resource),
+      parent: "admin",
     },
   }));
 };
@@ -21,7 +39,10 @@ export const generateCommonResources = (resources: string[]) => {
 /**
  * resources
  */
-export const resources = [...generateCommonResources(commonResources)];
+export const resources = [
+  ...generateCommonResources(commonResources),
+  ...generateAdminResources(adminResources),
+];
 
 /**
  * create label
