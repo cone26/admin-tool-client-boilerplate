@@ -4,7 +4,6 @@ import { commonResources } from "./dbResources";
  * 리소스 생성
  */
 export const generateCommonResources = (resources: string[]) => {
-  console.log(resources);
   return resources.map((resource) => ({
     name: resource,
     list: `/${resource}`,
