@@ -17,7 +17,7 @@ export const BlogPostList = () => {
   });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "categories",
+    resource: "posts",
     ids:
       dataGridProps?.rows
         ?.map((item: any) => item?.category?.id)
