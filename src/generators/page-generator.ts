@@ -11,9 +11,7 @@ const generator = async () => {
   /**
    * db resources
    */
-  export const commonResources: string[] = [${routes.map(
-    (route) => "'" + route + "'"
-  )}];
+  export const tables: string[] = [${routes.map((route) => "'" + route + "'")}];
     `;
     // create the file
     const fsStream = createWriteStream(`./src/constants/dbResources.tsx`);

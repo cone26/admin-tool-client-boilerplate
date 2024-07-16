@@ -1,4 +1,4 @@
 /**
  * db resources
  */
-export const resources: string[] = ["users", "posts"];
+export const tables: string[] = ["users", "posts"];

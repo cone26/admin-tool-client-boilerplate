@@ -1,9 +1,9 @@
-import { adminResources, commonResources } from "./dbResources";
+import { tables } from "./dbResources";
 
 /**
- * 리소스 생성
+ * create the resources
  */
-export const generateCommonResources = (resources: string[]) => {
+export const generateResources = (resources: string[]) => {
   return resources.map((resource) => ({
     name: resource,
     list: `/${resource}`,
@@ -19,30 +19,9 @@ export const generateCommonResources = (resources: string[]) => {
 };
 
 /**
- * 리소스 생성
- */
-export const generateAdminResources = (resources: string[]) => {
-  return resources.map((resource) => ({
-    name: resource,
-    list: `/${resource}`,
-    create: `/${resource}/create`,
-    edit: `/${resource}/edit/:id`,
-    show: `/${resource}/show/:id`,
-    meta: {
-      canDelete: true,
-      label: createLabel(resource),
-      parent: "admin",
-    },
-  }));
-};
-
-/**
  * resources
  */
-export const resources = [
-  ...generateCommonResources(commonResources),
-  ...generateAdminResources(adminResources),
-];
+export const resources = [...generateResources(tables)];
 
 /**
  * create label
