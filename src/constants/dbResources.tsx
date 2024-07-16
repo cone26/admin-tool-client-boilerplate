@@ -1,4 +1,4 @@
 /**
  * db resources
  */
-export const commonResources: string[] = ["users", "posts"];
+export const resources: string[] = ["users", "posts"];
