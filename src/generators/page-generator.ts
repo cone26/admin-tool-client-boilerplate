@@ -1,6 +1,5 @@
 import { createWriteStream } from "fs";
 import SwaggerParser from "@apidevtools/swagger-parser";
-import { log } from "console";
 
 const generator = async () => {
   // methods
@@ -16,7 +15,7 @@ const generator = async () => {
     (route) => "'" + route + "'"
   )}];
     `;
-    // 파일 생성
+    // create the file
     const fsStream = createWriteStream(`./src/constants/dbResources.tsx`);
     fsStream.write(code);
     fsStream.end();
@@ -42,14 +41,13 @@ const generator = async () => {
   const api = await SwaggerParser.dereference(url);
 
   const commonRoutes = [];
-  const gameRoutes = [];
 
   for (const path of Object.keys(Object(api.paths))) {
     const firstPath = path.split("/")[2];
     if (firstPath !== undefined) commonRoutes.push(firstPath);
   }
 
-  // resource file 업데이트
+  // update resource file
   await updateResourceFiles(Array.from(new Set(commonRoutes)));
 
   const paths = api?.paths;
