@@ -59,24 +59,7 @@ export const ShowComponent = () => {
     <Box>
       <Show
         isLoading={isLoading}
-        headerButtons={({ defaultButtons }) => (
-          <>
-            {defaultButtons}
-            <Button color="primary" onClick={handleClick}>
-              커서를 올려주세요
-            </Button>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              {resources.flatMap((resource) => (
-                <MenuItem
-                  key={resource.name}
-                  onClick={() => handleMenuItemClick(resource.name)}
-                >
-                  {createLabel(resource.name)}
-                </MenuItem>
-              ))}
-            </Menu>
-          </>
-        )}
+        headerButtons={({ defaultButtons }) => <>{defaultButtons}</>}
       >
         <Stack gap={3}>
           {Object.entries(record || {}).map(([key, value]) => (
