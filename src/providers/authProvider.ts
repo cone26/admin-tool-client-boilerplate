@@ -2,7 +2,7 @@ import { AuthBindings } from "@refinedev/core";
 import { CredentialResponse } from "../interfaces/google";
 import { parseJwt } from "../utils/parse-jwt";
 import axios from "axios";
-import { commonResources } from "../constants/dbResources";
+import { tables } from "../constants/dbResources";
 
 export const authProvider: AuthBindings = {
   login: async ({ credential }: CredentialResponse) => {
@@ -21,7 +21,7 @@ export const authProvider: AuthBindings = {
 
       return {
         success: true,
-        redirectTo: `/${commonResources[0]}`,
+        redirectTo: `/${tables[0]}`,
       };
     }
 

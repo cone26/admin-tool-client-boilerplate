@@ -51,7 +51,7 @@ function App() {
                 dataProvider={dataProvider}
                 notificationProvider={notificationProvider}
                 routerProvider={routerBindings}
-                authProvider={authProvider}
+                // authProvider={authProvider}
                 resources={resources}
                 options={{
                   syncWithLocation: true,
