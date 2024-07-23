@@ -26,6 +26,7 @@ import { dataProvider } from "./providers/dataProvider";
 import { resources } from "./constants/resource";
 import { ListComponent } from "./components/list";
 import { authProvider } from "./providers/authProvider";
+import { ShowComponent } from "./components";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -78,7 +79,7 @@ function App() {
                       return (
                         <Route key={resource.name} path={resource.name}>
                           <Route index element={<ListComponent />} />
-                          {/* <Route path="show/:id" element={<ShowComponent />} /> */}
+                          <Route path="show/:id" element={<ShowComponent />} />
                         </Route>
                       );
                     })}
