@@ -56,8 +56,7 @@ const generator = async () => {
         let response;
         if (methodType === "get") {
           response = paths[path]?.get?.responses["200"];
-          const outDto = getOutDto(response);
-          console.log(outDto);
+          getOutDto(response);
         }
       });
     });
