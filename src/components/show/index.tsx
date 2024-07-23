@@ -2,10 +2,9 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { Box, Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useShow } from "@refinedev/core";
 import { Show, TextFieldComponent as TextField } from "@refinedev/mui";
-import { createLabel, resources } from "../../constants/resource";
 
 export const ShowComponent = () => {
   const { queryResult } = useShow();
@@ -13,27 +12,6 @@ export const ShowComponent = () => {
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
-
-  const navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const userId = record?.id;
-
-  const handleMenuItemClick = (resource: string) => {
-    navigate(`/${resource}/show/${userId}`);
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
 
   const formatValue = (value: any): any => {
     if (Array.isArray(value)) {
