@@ -13,7 +13,6 @@ export const generateResources = (resources: string[]) => {
     meta: {
       canDelete: true,
       label: createLabel(resource),
-      parent: "common",
     },
   }));
 };
